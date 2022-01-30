@@ -3,7 +3,7 @@ from typing import List
 
 import requests
 
-ADDRESS = toponym_to_find = " ".join(sys.argv[1:])
+ADDRESS = " ".join(sys.argv[1:])
 
 
 def get_point_from_address(toponym_to_find: str = ADDRESS) -> List[float]:
