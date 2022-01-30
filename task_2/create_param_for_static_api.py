@@ -33,16 +33,12 @@ def create_static_api_params():
     corners = json_response['response']['GeoObjectCollection'][
         'featureMember'][0]['GeoObject']['boundedBy']['Envelope']
 
-    low_corn = [float(el) for el in corners['lowerCorner'].split()]
-    up_corn = [float(el) for el in corners['upperCorner'].split()]
-    max_longitude = max(low_corn[0], up_corn[0]) - min(low_corn[0], up_corn[0])
-    max_latitude = max(low_corn[1], up_corn[1]) - min(low_corn[1], up_corn[1])
-
+    low_corn = ','.join(corners['lowerCorner'].split())
+    up_corn = ','.join(corners['upperCorner'].split())
 
     # Собираем параметры для запроса к StaticMapsAPI:
     map_params = {
-        "ll": ",".join([toponym_longitude, toponym_lattitude]),
-        "spn": f'{max_longitude},{max_latitude}',
+        "bbox": f'{low_corn}~{up_corn}',
         "l": "map",
         "pt": f'{",".join([toponym_longitude, toponym_lattitude])},,pm2dgl'
     }
